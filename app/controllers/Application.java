@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.*;
 import play.*;
 import play.data.Form;
+import play.db.Database;
 import play.libs.F;
 import play.libs.ws.WS;
 import play.mvc.*;
@@ -26,10 +27,11 @@ import play.libs.ws.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
-
+import javax.inject.Inject;
 
 public class Application extends Controller  {
-
+    @Inject
+    Database db;
     @Inject
     FormFactory formFactory;
 
