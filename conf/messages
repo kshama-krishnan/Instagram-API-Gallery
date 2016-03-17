@@ -1,0 +1,5 @@
+# Messages
+
+collections.list.title={0,choice,0#No collections|1#One collection|1<{0,number,integer} collections} found
+
+
