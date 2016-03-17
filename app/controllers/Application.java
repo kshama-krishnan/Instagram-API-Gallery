@@ -155,11 +155,7 @@ public class Application extends Controller  {
     }
 
 /*
-    @Transactional(readOnly = true)
-    public Result getPersons() {
-        List<Person> persons = (List<Person>) JPA.em().createQuery("select p from Person p").getResultList();
-        return ok(toJson(persons));
-    }
+
 
     @Transactional(readOnly = true)
     public Result getTasks() {
