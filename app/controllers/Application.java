@@ -31,8 +31,6 @@ import javax.inject.Inject;
 
 public class Application extends Controller  {
     @Inject
-    Database db;
-    @Inject
     FormFactory formFactory;
 
     public Result index() {
