@@ -30,6 +30,7 @@ import java.util.concurrent.ExecutionException;
 import javax.inject.Inject;
 
 public class Application extends Controller  {
+
     @Inject
     FormFactory formFactory;
 
