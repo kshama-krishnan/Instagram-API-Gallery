@@ -14,9 +14,10 @@ Steps to make the app run:-
   default.url=${?DATABASE_URL
   
   The url is a postgresql database provided by heroku.
+  
 5.Create a new Heroku proc file in the project root with the below properties:-
 
-   web: target/universal/stage/bin/your_project_name -Dhttp.port=${PORT} -Dplay.evolutions.db.default.autoApply=true     -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=${DATABASE_URL}
+  web: target/universal/stage/bin/your_project_name -Dhttp.port=${PORT} -Dplay.evolutions.db.default.autoApply=true     -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=${DATABASE_URL}
    
 6.Create a heroku account and git push the code.
 7.Start the heroku server and open the app.
