@@ -11,38 +11,74 @@
 @main("Welcome to Play 2.0") {
     <div>
         <script type='text/javascript' src='@routes.Assets.versioned("javascripts/collectionIndex.js")'></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/css/datepicker3.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
     </div>
     <div class="container">
-
-
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12">
         @helper.form(action = routes.Application.addCollection()) {
-            <div>
                 <h1>Create Collection</h1>
-            <label>Name:<input type="text" value="@taskForm("name").value()" name="name" /></label>
-            <label>Hashtag:<input type="text" value="@taskForm("hashTag").value()" name="hashTag" /></label>
-        </div>
+            <form class="form-inline">
+                @if(taskForm.hasErrors) {
+                    Errors in form
+                }
+                <div class="form-group">
+            <label>Name:</label><input type="text" value="@taskForm("name").value()" name="name" /></div>
+                <div class="form-group"><label>Hashtag:</label><input type="text" value="@taskForm("hashTag").value()" name="hashTag" /></div>
+                     <div class="form-group">
+                    <label>Start Date:</label><input type='text' data-date-format='yyyy-mm-dd' name="startDate" id='datetimepicker1'  value="@taskForm("startDate").value()"/>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label>End Date:</label><input type='text' data-date-format='yyyy-mm-dd' name="endDate" id='datetimepicker2' value="@taskForm("endDate").value()"/>
+                </div>
+                <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker1').datepicker({
+
+                                dateFormat: 'yyyy-mm-dd'
+                            });
+                            $('#datetimepicker2').datepicker({
+                                dateFormat: 'yyyy-mm-dd'
+
+                            });
+                        });
+
+                </script>
+
             <div class="controls">
                 <input type="submit" class="btn btn-primary"/>
             </div>
+
+                </form>
         }
+                </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
         @helper.form(action = routes.Application.printCollectionHelper()) {
-            <div>
+            <div class="form-group">
                 <h1>View Collection</h1>
-                <select name="name" id="collection" value="@taskForm("name").value()"></select>
+                <select class="form-control" name="name" id="collection" value="@taskForm("name").value()"></select>
             </div>
             <div class="controls">
                 <input type="submit" class="btn btn-primary"/>
             </div>
 
         }
-
-
         </div>
+</div>
+
 
     @if(currentPage!=null) {
-
+        <div class="row">
+            <div class="col-md-12">
         <h1 id="homeTitle">@Messages("collections.list.title", currentPage.getTotalRowCount)</h1>
-
+            </div>
+        </div>
         @if(currentPage.getTotalRowCount == 0) {
 
             <div class="well">
@@ -51,44 +87,22 @@
 
         } else {
 
-            <table class="">
-                <thead>
-                    <tr>
-                        <th>instagramUsername</th>
-                        <th>URLName</th>
-                        <th>img</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="container-fluid">
+                <div class="row">
+            @for((collection,index) <- currentPage.getList.zipWithIndex) {
 
-                @for(collection <- currentPage.getList) {
-                    <tr>
-                        <td>
-                        @if(collection.img == null) {
-                            <em>-</em>
-                        } else {
-                            <img src=@collection.img/>
-                        }
-                        </td>
-                        <td>
-                        @if(collection.instagramUsername == null) {
-                            <em>-</em>
-                        } else {
-                            @collection.instagramUsername
-                        }
-                        </td>
-                        <td>
-                        @if(collection.URLName == null) {
-                            <em>-</em>
-                        } else {
-                            @collection.URLName
-                        }
-                        </td>
-                    </tr>
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <a href=@collection.URLName class="thumbnail">
+                        <p>@collection.instagramUsername</p>
+                        <img class="img-responsive" src=@collection.img style="width:150px;height:150px">
+                    </a>
+                </div>
+                @if(index+1 % 3 == 0)  {
+                    </div><div class="row">
                 }
-
-                </tbody>
-            </table>
+            }
+            </div>
+            </div>
 
             <div id="pagination" class="pagination">
                 <ul>
@@ -118,4 +132,5 @@
 
         }
     }
+</div>
 }

@@ -5,6 +5,8 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import play.data.format.*;
 import play.data.validation.*;
 
@@ -15,9 +17,21 @@ public class Collection extends Model{
     @GeneratedValue(strategy=GenerationType.AUTO)
     public String id;
 
+    @Constraints.Required
     public String name;
 
+
     public String hashTag;
+
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd")
+    public Date startDate;
+
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd")
+    public Date endDate;
+
+
 
     public String getId() {
         return id;
@@ -45,4 +59,10 @@ public class Collection extends Model{
     }
     public static Finder<String, Collection> find = new Finder<String,Collection>(Collection.class);
 
+    public String validate() {
+        if (hashTag == "") {
+            return "Enter hashtag";
+        }
+        return null;
+    }
 }

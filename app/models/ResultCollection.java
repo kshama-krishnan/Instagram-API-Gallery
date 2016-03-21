@@ -2,6 +2,8 @@ package models;
 
 import com.avaje.ebean.Model;
 import com.avaje.ebean.PagedList;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import scala.collection.immutable.Page;
 
 import java.util.*;
@@ -29,6 +31,10 @@ public class ResultCollection extends Model {
 
     public String img;
 
+    @JsonProperty("dateTime")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+    public Date tagTime;
+
     public String getcName() {
         return cName;
     }
@@ -54,6 +60,14 @@ public class ResultCollection extends Model {
     }
 
 
+    public Date getTagTime() {
+        return tagTime;
+    }
+
+    public void setTagTime(Date tagTime) {
+        this.tagTime = tagTime;
+    }
+
     public String getImg() {
         return img;
     }
@@ -68,6 +82,6 @@ public class ResultCollection extends Model {
         return
                 find.where()
                         .ilike("cName",cName)
-                        .findPagedList(page,10);
+                        .findPagedList(page,9);
     }
 }
